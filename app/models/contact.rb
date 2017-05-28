@@ -1,19 +1,23 @@
 class Contact < ApplicationRecord
-  belongs_to :kind
+  belongs_to :kind, optional: true
 
-  def author
-    "Márcio Rodriguez"
+  def birthdate_br
+    I18n.l(self.birthdate) unless birthdate.blank?
   end
 
-  def kind_description
-    self.kind.description
-  end
-
-  def as_json(options={})
-    super(
-      root: true,
-      methods: [:kind_description, :author],
-      include: {kind: {only: :description}}
-      )
-  end
+  # def author
+  #   "Márcio Rodriguez"
+  # end
+  #
+  # def kind_description
+  #   self.kind.description
+  # end
+  #
+  # def as_json(options={})
+  #   super(
+  #     root: true,
+  #     methods: [:kind_description, :author],
+  #     include: {kind: {only: :description}}
+  #     )
+  # end
 end
